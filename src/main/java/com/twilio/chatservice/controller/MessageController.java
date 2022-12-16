@@ -19,13 +19,15 @@ public class MessageController {
     }
 
     @RequestMapping(value="/message/{userId}", method= RequestMethod.GET)
-    public List<Message> getMessagesForUser(@PathVariable(value = "userId") Long id) throws Exception {
-        return messageService.getMessagesForUser(id);
+    public List<Message> getMessagesForUser(@PathVariable(value = "userId") Long id,
+                                            @RequestBody String pollHistoricalData) throws Exception {
+        return messageService.getMessagesForUser(id, Boolean.parseBoolean(pollHistoricalData));
     }
 
     @RequestMapping(value="/message/{userId1}/{userId2}", method= RequestMethod.GET)
     public List<Message> getMessagesForCombo(@PathVariable(value = "userId1") Long id1,
-                                             @PathVariable(value = "userId2") Long id2) throws Exception {
-        return messageService.getMessagesForCombo(id1, id2);
+                                             @PathVariable(value = "userId2") Long id2,
+                                             @RequestBody String pollHistoricalData) throws Exception {
+        return messageService.getMessagesForCombo(id1, id2, Boolean.parseBoolean(pollHistoricalData));
     }
 }
